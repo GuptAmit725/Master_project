@@ -1,53 +1,53 @@
-from flask import Flask
-from flask import render_template
-from flask import request
+from flask import Flask, render_template, request
 import os
 from result import output
-import pickle
 import tensorflow as tf
+from logger import logs
 
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'C:/Users/amiti/Desktop/Master_project/MSP/static'
 SAVE_IMG = 'C:/Users/amiti/Desktop/Master_project/MSP/static'
 
-@app.route('/', methods=['GET', 'POST'])
+log_it = logs()
+log_it.erase_file()
+
+@app.route('/upload-analyse', methods=['GET', 'POST'])
 def upload():
-    print('1')
+    log_it.log(f"{'='*50} Starting the log {'='*50}")
+    log_it.log("=====In the '/' route .=====")
     if request.method == 'POST':
-        print('2')
+        log_it.log(f"=====When the method is POST=====")
         image_file = request.files['image']
+        log_it.log(f"=====The image has been uploaded.=====")
         if image_file:
-            print('3')
+            log_it.log(f"=====The image is valid.=====")
             image_file.save(os.path.join(UPLOAD_FOLDER, image_file.filename))
-            print('4')
             path = UPLOAD_FOLDER+'/' + image_file.filename
-            print('5', path)
+            log_it.log(f"=====The image is saved at {path}.=====")
             get_results = output(path)
-            print('6')
             pred_class,accuracy = get_results.get_class()
-            print('7')
+            log_it.log(f"=====Prediction is  {pred_class}.=====")
             if pred_class:
                 lobe_img, grad_img = get_results.ExplainOutput(pred_class)
-                print(lobe_img.shape, grad_img.shape)
-
+                log_it.log(f"=====Successfully got explanation results and saving them at {SAVE_IMG}. =====")
                 for j,i in enumerate([lobe_img,grad_img]):
                     if j==0:
-                        print(i.shape)
+                        log_it.log(f"=====shape of lobe_img : {i.shape}.=====")
                         tf.keras.utils.save_img(os.path.join(SAVE_IMG,'lobe_img.jpg'),i)
 
                     else:
-                        print(i.shape)
+                        log_it.log(f"=====shape of grad_img : {i.shape}.=====")
                         tf.keras.utils.save_img(os.path.join(SAVE_IMG, 'grad_img.jpg'), i)
-
-            #print('lobe img : ',lobe_img.shape)
-            #print(8)
-            #print(f"prediction : {pred_class}")
-            #print(9)
-            #print(accuracy, pred_class)
+                log_it.log(f"=====Copying the log file and emptying the original file.=====")
                 return render_template("results.html", prediction = pred_class, grad_path = 'grad_img.jpg', lobe_path = 'lobe_img.jpg', org_path = image_file.filename, accuracy = 100*accuracy)
             else:
+                log_it.log(f"=====The image uploaded is not valid.=====")
+                log_it.log(f"=====Copying the log file and emptying the original file.=====")
                 return render_template('results.html', prediction=pred_class, gradp_path=None, lobe_path=None, org_path=None, accuracy = accuracy*100)
+
+    log_it.log(f"=====The method is GET not POST.=====")
+    log_it.log(f"=====Copying the log file and emptying the original file.=====")
     return render_template('results.html', prediction=None, gradp_path=None, lobe_path=None, org_path=None, accuracy = None)
 
 

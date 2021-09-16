@@ -1,5 +1,9 @@
 
 import numpy as np
+from logger import logs
+
+log_it = logs()
+log_it.log(f"=====Into the find_lobe.py Module=====")
 
 def find_correct_lobe(img):
   """
@@ -9,6 +13,7 @@ def find_correct_lobe(img):
   but the purpose of this function is to get the most effected region
   in the CXR.
   """
+  log_it.log(f"=====Into the find_correct_lobe function=====")
   output = []
   im = img.copy()
   r,c,_ = im.shape
@@ -22,6 +27,8 @@ def find_correct_lobe(img):
   box = np.zeros((r,c//2,3))
   p = []
   box2 = np.zeros((r//2,c//2,3))
+  log_it.log(f"=====image masking : SUCCESSFUL=====")
+  log_it.log(f"=====Getting the correct bounding box=====")
   if np.array(s).argmax():
     box[2:r-2,2:c//2-2,:] = im[2:r-2,c//2+2:c-2,:]
     im[:,c//2:c,:] = box
@@ -69,6 +76,7 @@ def find_correct_lobe(img):
       box2[2:r//2-2,2:c//2-2,:] = im[2:r//2-2,2:c//2-2,:]
       im[0:r//2,0:c//2,:] = box2
       output.append(im)
+  log_it.log(f"=====Getting the correct bounding box : SUCCESSFUL=====")
 
   return  output[1]
 

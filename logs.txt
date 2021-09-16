@@ -1,0 +1,93 @@
+================================================== Starting the log ================================================== 
+=====In the '/' route .===== 
+=====The method is GET not POST.===== 
+=====Copying the log file and emptying the original file.===== 
+================================================== Starting the log ================================================== 
+=====In the '/' route .===== 
+=====When the method is POST===== 
+=====The image has been uploaded.===== 
+=====The image is valid.===== 
+=====The image is saved at C:/Users/amiti/Desktop/Master_project/MSP/static/pneumonia.jpg.===== 
+=====Getting the class predicition===== 
+=====input image resized and preprocessed for feeding into model===== 
+=====Prediction is  1.===== 
+=====Into the ExplainOutput function in result.py module===== 
+=====prediction is 1 and making the instance of explaining class===== 
+=====Into the Explanation Module and in show_lobe method  of explain class===== 
+=====Image preprocessing done.===== 
+=====Into the find_correct_lobe function===== 
+=====image masking : SUCCESSFUL===== 
+=====Getting the correct bounding box===== 
+=====Getting the correct bounding box : SUCCESSFUL===== 
+=====Lobe found..===== 
+=====Into the Explanation Module and in show_pixels method  of explain class===== 
+=====Image preprocessing done.===== 
+=====Getting the lung segmentation===== 
+=====Getting pixels value with greater than 0.7===== 
+=====Successfully got explanation results and saving them at C:/Users/amiti/Desktop/Master_project/MSP/static. ===== 
+=====shape of lobe_img : (128, 128, 3).===== 
+=====shape of grad_img : (128, 128, 3).===== 
+=====Copying the log file and emptying the original file.===== 
+================================================== Starting the log ================================================== 
+=====In the '/' route .===== 
+=====When the method is POST===== 
+=====The image has been uploaded.===== 
+=====The image is valid.===== 
+=====The image is saved at C:/Users/amiti/Desktop/Master_project/MSP/static/pneumonia2.jpg.===== 
+=====Getting the class predicition===== 
+=====input image resized and preprocessed for feeding into model===== 
+=====Prediction is  0.===== 
+=====The image uploaded is not valid.===== 
+=====Copying the log file and emptying the original file.===== 
+================================================== Starting the log ================================================== 
+=====In the '/' route .===== 
+=====When the method is POST===== 
+=====The image has been uploaded.===== 
+=====The image is valid.===== 
+=====The image is saved at C:/Users/amiti/Desktop/Master_project/MSP/static/pneumonia3.png.===== 
+=====Getting the class predicition===== 
+=====input image resized and preprocessed for feeding into model===== 
+=====Prediction is  1.===== 
+=====Into the ExplainOutput function in result.py module===== 
+=====prediction is 1 and making the instance of explaining class===== 
+=====Into the Explanation Module and in show_lobe method  of explain class===== 
+=====Image preprocessing done.===== 
+=====Into the find_correct_lobe function===== 
+=====image masking : SUCCESSFUL===== 
+=====Getting the correct bounding box===== 
+=====Getting the correct bounding box : SUCCESSFUL===== 
+=====Lobe found..===== 
+=====Into the Explanation Module and in show_pixels method  of explain class===== 
+=====Image preprocessing done.===== 
+=====Getting the lung segmentation===== 
+=====Getting pixels value with greater than 0.7===== 
+=====Successfully got explanation results and saving them at C:/Users/amiti/Desktop/Master_project/MSP/static. ===== 
+=====shape of lobe_img : (128, 128, 3).===== 
+=====shape of grad_img : (128, 128, 3).===== 
+=====Copying the log file and emptying the original file.===== 
+================================================== Starting the log ================================================== 
+=====In the '/' route .===== 
+=====When the method is POST===== 
+=====The image has been uploaded.===== 
+=====The image is valid.===== 
+=====The image is saved at C:/Users/amiti/Desktop/Master_project/MSP/static/test_normal.jpg.===== 
+=====Getting the class predicition===== 
+=====input image resized and preprocessed for feeding into model===== 
+=====Prediction is  1.===== 
+=====Into the ExplainOutput function in result.py module===== 
+=====prediction is 1 and making the instance of explaining class===== 
+=====Into the Explanation Module and in show_lobe method  of explain class===== 
+=====Image preprocessing done.===== 
+=====Into the find_correct_lobe function===== 
+=====image masking : SUCCESSFUL===== 
+=====Getting the correct bounding box===== 
+=====Getting the correct bounding box : SUCCESSFUL===== 
+=====Lobe found..===== 
+=====Into the Explanation Module and in show_pixels method  of explain class===== 
+=====Image preprocessing done.===== 
+=====Getting the lung segmentation===== 
+=====Getting pixels value with greater than 0.7===== 
+=====Successfully got explanation results and saving them at C:/Users/amiti/Desktop/Master_project/MSP/static. ===== 
+=====shape of lobe_img : (128, 128, 3).===== 
+=====shape of grad_img : (128, 128, 3).===== 
+=====Copying the log file and emptying the original file.===== 
