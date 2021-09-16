@@ -1,43 +1,55 @@
+from flask import Flask
+from flask import render_template
+from flask import request
 import os
-from pydoc import html
+from result import output
+import pickle
+import tensorflow as tf
 
-from flask import Flask, flash, request, redirect, url_for, render_template
-
-UPLOAD_FOLDER = 'Media'
-ALLOWED_EXTENSION = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = 'C:/Users/amiti/Desktop/Master_project/MSP/static'
+SAVE_IMG = 'C:/Users/amiti/Desktop/Master_project/MSP/static'
 
-@app.route('/home',methods = ['GET'])
+@app.route('/', methods=['GET', 'POST'])
+def upload():
+    print('1')
+    if request.method == 'POST':
+        print('2')
+        image_file = request.files['image']
+        if image_file:
+            print('3')
+            image_file.save(os.path.join(UPLOAD_FOLDER, image_file.filename))
+            print('4')
+            path = UPLOAD_FOLDER+'/' + image_file.filename
+            print('5', path)
+            get_results = output(path)
+            print('6')
+            pred_class,accuracy = get_results.get_class()
+            print('7')
+            if pred_class:
+                lobe_img, grad_img = get_results.ExplainOutput(pred_class)
+                print(lobe_img.shape, grad_img.shape)
 
-def home():
-    return render_template('index.html')
+                for j,i in enumerate([lobe_img,grad_img]):
+                    if j==0:
+                        print(i.shape)
+                        tf.keras.utils.save_img(os.path.join(SAVE_IMG,'lobe_img.jpg'),i)
 
-@app.route('/login', methods = ['GET'])
+                    else:
+                        print(i.shape)
+                        tf.keras.utils.save_img(os.path.join(SAVE_IMG, 'grad_img.jpg'), i)
 
-def login():
-    return render_template('login.html'),
+            #print('lobe img : ',lobe_img.shape)
+            #print(8)
+            #print(f"prediction : {pred_class}")
+            #print(9)
+            #print(accuracy, pred_class)
+                return render_template("results.html", prediction = pred_class, grad_path = 'grad_img.jpg', lobe_path = 'lobe_img.jpg', org_path = image_file.filename, accuracy = 100*accuracy)
+            else:
+                return render_template('results.html', prediction=pred_class, gradp_path=None, lobe_path=None, org_path=None, accuracy = accuracy*100)
+    return render_template('results.html', prediction=None, gradp_path=None, lobe_path=None, org_path=None, accuracy = None)
 
-@app.route('/register', methods = ['GET'])
 
-def register():
-    return render_template('register.html'), render_template('login.html')
-
-@app.route('/upload-image', methods=['GET', 'POST'])
-def upload_image():
-    if request.method == "POST":
-        if request.files:
-            image = request.files["image"]
-            #print(app.config["UPLOAD_FOLDER"]+'/'+ image.filename)
-            image.save(app.config["UPLOAD_FOLDER"]+'/'+ image.filename)
-            filename = app.config["UPLOAD_FOLDER"]+'/'+ image.filename
-            print("stored as:" + filename)
-            return render_template("upload.html", uploaded_image=filename)
-    return render_template("upload.html")
-@app.route('/bg',methods = ['GET','POST'])
-def bg():
-    return render_template('bg.html')
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
-

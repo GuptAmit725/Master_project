@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+img {
+  border: 5px solid #6D60BC;
+  padding: 20px
+}
+body {
+  background-image: url('http://fulldesktopbackgrounds.com/wp-content/uploads/2017/09/Medical-Background-3.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+.button1 {
+  background-color: #6D60BC;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 20px 690px;
+  cursor: pointer;
+}
+
+.button2 {
+  background-color: #6D60BC;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 0px 550px;
+  cursor: pointer;
+}
+h1 {
+  color: #072142;
+  text-align:center;
+  display : block;
+  font-weight : bold;
+  font-size : 2em;
+  border : 5px
+  font-family: 'Changa One', sans-serif;
+}
+h2 {
+  color: #072142;
+  text-align:center;
+  display : block;
+  font-weight : bold;
+  font-size : 1em;
+  border : 5px
+  font-family: 'Changa One', sans-serif;
+}
+h3 {
+  color:#CC2912;
+  text-align:center;
+  display : block;
+  font-weight : bold;
+  font-size : 1em;
+  border : 5px
+  font-family: 'Changa One', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+</style>
+</head>
+<title>Pneumonia Detection</title>
+<div id="navbar">
+  <a href="#"></a>
+</div>
+<h1>UPLOAD NEW FILE</h1>
+<form method = post enctype=multipart/form-data>
+    <input type=file class="button button2"  name=image>
+    <input type=submit class="button button1" value="Show Result">
+</form>
+
+{% if prediction == 1 %}
+    <h3>The chest is having PNEUMONIA with accuracy of {{accuracy}} %</h3>
+    <div class="row">
+        <img src="static/{{org_path}}" alt="Normal" widht="448" height="448">
+        <img src="static/{{grad_path}}" alt="Gradinet plotting" widht="448" height="448">
+        <img src="static/{{lobe_path}}" alt="Lobe plotting" widht="448" height="448">
+    </div>
+{% elif prediction == 0 %}
+    <h2>The chest is NORMAL with accuracy of {{accuracy}} %</h2>
+{%else%}
+    <h2>Please upload chest X-Ray here to check. </h2>
+{%endif%}
+
+
+
+
